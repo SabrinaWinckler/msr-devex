@@ -1,0 +1,12 @@
+Como o uso de IA impacta a velocidade e intensidade dos feedback loops,
+medidos pelo tempo até a primeira revisão e pelo volume de interações durante a
+revisão de PRs (tempo até primeira revisão, número de rodadas de revisão, tempo
+até merge)?
+
+Como proxies de carga cognitiva emergem em PRs assistidos por IA,
+observando o esforço necessário para revisão (número de revisores, volume de
+comentários) e a diversidade de arquivos modificados?
+
+Como a participação de agentes de código influencia a fluidez do trabalho,
+medida pela granularidade de commits e frequência de interrupções no fluxo de
+contribuição (PRs abertos, tempo entre commits, tempo até merge)?

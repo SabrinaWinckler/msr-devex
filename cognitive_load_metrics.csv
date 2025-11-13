@@ -1,0 +1,4 @@
+,conventional_commits_total,total_comments,issues_antes,issues_depois,issues_delta,frequencia_interrupcoes_mean_hours,frequencia_interrupcoes_median_hours,arquivos_modificados_mean,arquivos_modificados_median,code_churn_mean,code_churn_median
+Claude_Code,459.0,1230.0,24.0,77.0,53.0,28.402447163250464,1.074351851851852,1.9661016949152543,1.0,6.037037037037037,3.0
+Copilot,4970.0,27858.0,1340.0,2517.0,1177.0,10.91370178099812,0.34791666666666665,1.1701469450889403,1.0,4.790585395292697,3.0
+Cursor,1541.0,2816.0,14.0,54.0,40.0,9.654648932264738,0.4194444444444444,1.2076923076923076,1.0,4.004542504866969,2.0
