@@ -1,0 +1,72 @@
+issue_number,issue_title,issue_reporter,issue_state,issue_created_at,issue_closed_at,pr_id,has_bot_involvement,bot_names,total_commits,ai_commits,human_commits,bot_commits_percentage,total_comments,ai_comments,human_comments,bot_comments_percentage,total_reviews,ai_reviews,human_reviews,bot_reviews_percentage
+8418,[BUG]: Add proper error message when OIDC scope is missing,ion-elgreco,closed,2025-07-04T09:26:47Z,2025-07-15T16:07:25Z,3229430451,True,"github-actions[bot], cursor[bot]",4,1,3,25.0,5,3,2,60.0,1,0,1,0.0
+1211,Allow complex signals in partition_by,dreadatour,closed,2025-07-08T20:44:24Z,2025-07-12T14:51:24Z,3213779460,True,"sourcery-ai[bot], cloudflare-workers-and-pages[bot], codecov[bot]",30,4,26,13.33,3,3,0,100.0,3,2,1,66.67
+7483,Support JSON type in MySQL external table,wuliLSF,open,2022-06-20T08:06:04Z,,3258362007,True,"github-actions[bot], sonarqubecloud[bot]",1,1,0,100.0,5,4,1,80.0,0,0,0,0.0
+21485,ALTER SOURCE ... REFRESH SCHEMA will fail for source with generated columns,xxchan,closed,2025-04-21T15:08:12Z,2025-06-04T06:51:05Z,3113874849,True,"copilot-pull-request-reviewer[bot], cursor[bot]",6,4,2,66.67,0,0,0,0.0,4,3,1,75.0
+4334,Double session count with AutoSessionTracking=true,TimBurik,closed,2025-07-10T09:42:47Z,2025-07-12T22:57:13Z,3225320658,True,None,2,2,0,100.0,0,0,0,0.0,1,0,1,0.0
+1208,API launch failure - SAML_ACCEPTED_TIME_DIFF,wzsanders,closed,2025-06-21T01:25:03Z,2025-06-21T01:46:58Z,3164641128,True,cubic-dev-ai[bot],1,1,0,100.0,0,0,0,0.0,1,1,0,100.0
+429,[FR] Provide json schema for configuration file,Herve-M,closed,2025-05-30T09:19:42Z,2025-06-18T20:26:43Z,3158064373,True,None,2,1,1,50.0,0,0,0,0.0,0,0,0,0.0
+41,Add Invoice Number or Receipt Number as an expense input.,bmiciano1,closed,2025-06-24T04:04:22Z,2025-07-01T13:40:45Z,3190507423,True,cursor[bot],2,2,0,100.0,1,0,1,0.0,2,1,1,50.0
+384,Update typer to 0.16.0,jonhilgart22,closed,2025-07-14T16:49:08Z,2025-07-15T03:08:16Z,3230466693,True,None,1,1,0,100.0,0,0,0,0.0,0,0,0,0.0
+90473,Move Android/iOS selector to the common area for filters,krystofwoldrich,open,2025-04-28T11:32:38Z,,3168070357,True,"getsantry[bot], codecov[bot]",6,6,0,100.0,2,2,0,100.0,0,0,0,0.0
+123,fix .env check,olcan,closed,2025-04-22T21:30:23Z,2025-04-22T21:31:03Z,3212389407,True,None,2,1,1,50.0,1,0,1,0.0,0,0,0,0.0
+61393,Add JSON_REMOVE() function,murphyatwork,open,2025-07-29T09:37:18Z,,3272945997,True,"github-actions[bot], sonarqubecloud[bot], cursor[bot]",14,5,9,35.71,6,4,2,66.67,10,2,8,20.0
+34,feat: Mock Sentry in evals,dcramer,closed,2025-04-06T17:11:26Z,2025-04-06T17:21:58Z,3131982797,True,codecov[bot],6,3,3,50.0,1,1,0,100.0,0,0,0,0.0
+20229,bun audit does not respect proxy env vars,Bloodiko,closed,2025-06-06T12:58:06Z,2025-06-13T17:43:56Z,3132147174,True,None,2,1,1,50.0,2,0,2,0.0,0,0,0,0.0
+4788,[➕ Feature]: Saved Views should preserve column configuration across sessions,idanlodzki,closed,2025-05-14T14:46:30Z,2025-06-23T07:52:18Z,3132740864,True,"cursor[bot], codecov[bot], vercel[bot]",30,20,10,66.67,2,2,0,100.0,26,24,2,92.31
+40606,Promote receiver.prometheusreceiver.EnableNativeHistograms to beta,dashpole,open,2025-06-10T16:02:27Z,,3203354777,True,linux-foundation-easycla[bot],1,1,0,100.0,3,1,2,33.33,0,0,0,0.0
+296,"Add rewriting logic and other operators (split, gather) to pandas API",shreyashankar,closed,2025-01-29T16:54:24Z,2025-07-04T18:59:25Z,3203387779,True,None,3,2,1,66.67,0,0,0,0.0,0,0,0,0.0
+106,Mixed whitespace in expressions shows errors,donmccurdy,closed,2025-06-02T18:48:56Z,2025-07-12T20:54:07Z,3222558441,True,None,2,2,0,100.0,0,0,0,0.0,0,0,0,0.0
+3067,Different trace IDs are sent to Sentry and in the HTTP Request Header,db-dblank,closed,2025-07-11T01:52:11Z,2025-07-14T08:41:58Z,3222639652,True,"github-actions[bot], codecov[bot]",10,3,7,30.0,3,3,0,100.0,1,0,1,0.0
+1794,`dymd inspect` CLI is broken,mtsitrin,closed,2025-03-18T12:26:06Z,2025-07-28T11:59:15Z,3266988519,True,None,1,1,0,100.0,0,0,0,0.0,0,0,0,0.0
+763,bug: dev server makes components available as workflows,dereklegenzoff,closed,2025-06-12T21:32:14Z,2025-06-13T16:35:10Z,3142449171,True,"cursor[bot], vercel[bot]",1,1,0,100.0,1,1,0,100.0,2,1,1,50.0
+256,API error every time I call a tool,konverso-apetit,closed,2025-06-12T09:08:08Z,2025-06-13T17:02:03Z,3144104599,True,"copilot-pull-request-reviewer[bot], cursor[bot], codecov[bot]",5,5,0,100.0,1,1,0,100.0,7,7,0,100.0
+230,Sentry MCP Integration Fails with Self-Hosted Sentry – API Response Type Error,mshddev,closed,2025-05-28T15:49:27Z,2025-06-13T16:55:39Z,3144124705,True,"copilot-pull-request-reviewer[bot], cursor[bot], codecov[bot]",3,3,0,100.0,1,1,0,100.0,4,4,0,100.0
+57086,Add json_contains function - same as json_exists except for arrays,patrickviet,open,2025-03-19T13:49:09Z,,3273148562,True,"github-actions[bot], sonarqubecloud[bot], cursor[bot]",3,2,1,66.67,5,4,1,80.0,1,1,0,100.0
+5774,Fix yarn install warnings YN0002,qxprakash,closed,2025-06-03T22:27:13Z,2025-07-15T15:19:44Z,3231655337,True,"github-actions[bot], socket-security[bot]",3,2,1,66.67,2,2,0,100.0,1,0,1,0.0
+123,fix .env check,olcan,closed,2025-04-22T21:30:23Z,2025-04-22T21:31:03Z,3234710075,True,"gemini-code-assist[bot], google-cla[bot]",4,2,2,50.0,1,1,0,100.0,2,2,0,100.0
+3431,Panic on WebSocket broadcast,kevinschweikert,closed,2025-05-09T09:29:47Z,2025-06-28T09:39:00Z,3175055324,True,"cursor[bot], vercel[bot]",3,1,2,33.33,4,1,3,25.0,3,3,0,100.0
+3452,Ability to run arbitrary commands (eg: kscreen-doctor --dpms off),fornellas,open,2025-06-20T18:28:04Z,,3175055580,True,"cursor[bot], vercel[bot]",15,4,11,26.67,6,1,5,16.67,5,5,0,100.0
+13978,Broken link in product/insights/backend/queries,nikolovlazar,closed,2025-06-10T01:15:42Z,2025-06-25T19:17:59Z,3176623164,True,"codecov[bot], vercel[bot]",1,1,0,100.0,2,2,0,100.0,2,0,2,0.0
+13956,Broken link to app schema for integration-platform,doc-sheet,closed,2025-06-07T10:23:10Z,2025-06-26T20:38:37Z,3176701438,True,"codecov[bot], vercel[bot]",1,1,0,100.0,2,2,0,100.0,1,0,1,0.0
+266,CURSOR - Update README,kocobee,closed,2025-06-27T13:11:15Z,2025-06-27T16:43:49Z,3183425949,True,None,2,2,0,100.0,0,0,0,0.0,0,0,0,0.0
+269,[Chore] Test Cursor,kocobee,closed,2025-06-27T16:43:19Z,2025-06-27T17:43:11Z,3183507416,True,None,1,1,0,100.0,0,0,0,0.0,0,0,0,0.0
+271,[Chore] Test cases,kocobee,closed,2025-06-27T17:43:00Z,2025-06-30T23:07:54Z,3183652492,True,None,1,1,0,100.0,0,0,0,0.0,0,0,0,0.0
+1055,createPattern memory leaks,chenhongtu,closed,2025-05-28T04:14:16Z,2025-06-08T14:41:54Z,3128356528,True,None,2,1,1,50.0,0,0,0,0.0,0,0,0,0.0
+17653,Support HTML loader in `bun build --compile`,diqye,closed,2025-02-25T03:30:03Z,2025-07-13T13:56:03Z,3128413591,False,None,8,0,8,0.0,2,0,2,0.0,7,0,7,0.0
+4982,[🐛 Bug]: CEL queries update URL with query params but they do not survive page load/reload,ns-rboyd,closed,2025-06-04T17:53:50Z,2025-06-11T14:50:21Z,3128477850,True,"greptile-apps[bot], vercel[bot]",2,2,0,100.0,3,1,2,33.33,1,1,0,100.0
+127,Support pnpm 10 with onlyBuiltDependencies and ignoredBuiltDependencies,AudunWA,closed,2025-02-17T13:12:15Z,2025-07-13T20:40:59Z,3226800034,True,None,4,4,0,100.0,0,0,0,0.0,0,0,0,0.0
+120,The includeDevDependencies option results in incorrect lockfile,RDeluxe,open,2025-01-06T00:56:01Z,,3226855748,True,None,5,4,1,80.0,0,0,0,0.0,0,0,0,0.0
+221,Use arrow datasets for intermediates,shreyashankar,open,2024-12-02T00:08:04Z,,3203674177,True,None,12,10,2,83.33,1,0,1,0.0,0,0,0,0.0
+2644,Show console warn only once,yangwooseong,closed,2025-05-19T05:21:31Z,2025-07-03T04:41:27Z,3197782823,True,"github-actions[bot], coderabbitai[bot], codecov[bot], channeltalk[bot], changeset-bot[bot]",3,3,0,100.0,5,5,0,100.0,3,2,1,66.67
+2003,Panic when updating comment in GitHub PR,Orbsynated,closed,2025-06-29T15:41:28Z,2025-07-02T22:50:09Z,3189300447,True,"delve-auditor[bot], coderabbitai[bot], greptile-apps[bot]",2,2,0,100.0,2,2,0,100.0,3,3,0,100.0
+12547,[Feature]: Add Moonshot AI platform support.,sentienthouseplant,closed,2025-07-12T17:18:44Z,2025-07-14T22:23:35Z,3225638345,True,"cursor[bot], vercel[bot]",12,2,10,16.67,4,1,3,25.0,1,1,0,100.0
+13968,Migrate from yarn to pnpm,dcramer,open,2025-06-09T18:11:24Z,,3134880807,True,"codecov[bot], vercel[bot]",14,7,7,50.0,2,2,0,100.0,0,0,0,0.0
+2537,Warn when overwriting global org auth token,szokeasaurusrex,closed,2025-06-03T09:27:01Z,2025-06-11T15:06:29Z,3136628527,True,None,1,1,0,100.0,0,0,0,0.0,5,0,5,0.0
+2001,Use of LLM-Driven Tools to Fix Documentation Errors,mingxin-zheng,closed,2025-06-24T03:33:20Z,2025-06-24T15:19:51Z,3170461837,True,copilot-pull-request-reviewer[bot],1,0,1,0.0,0,0,0,0.0,2,1,1,50.0
+195,[PRD]: Collection Lifecycle for TanStack DB,KyleAMathews,closed,2025-06-23T17:11:58Z,2025-06-26T13:12:32Z,3171715437,True,"github-actions[bot], pkg-pr-new[bot], cursor[bot], changeset-bot[bot]",17,2,15,11.76,5,4,1,80.0,11,1,10,9.09
+3052,Consistent trace sampling,buenaflor,closed,2025-07-08T14:59:37Z,2025-07-16T15:31:03Z,3232435672,True,"github-actions[bot], codecov[bot]",11,1,10,9.09,2,2,0,100.0,4,0,4,0.0
+2001,Use of LLM-Driven Tools to Fix Documentation Errors,mingxin-zheng,closed,2025-06-24T03:33:20Z,2025-06-24T15:19:51Z,3178158316,True,"review-notebook-app[bot], copilot-pull-request-reviewer[bot]",6,0,6,0.0,2,1,1,50.0,4,1,3,25.0
+352,⚡️ Webhook for message ack event similar to WAHA,xoriuz,closed,2025-07-14T07:19:24Z,2025-07-19T08:12:55Z,3243017418,True,"coderabbitai[bot], cursor[bot], github-actions[bot]",4,2,2,50.0,4,4,0,100.0,9,8,1,88.89
+40,fix: example not running,vasilich6107,closed,2025-06-30T21:12:46Z,2025-07-06T10:06:12Z,3192904035,True,github-actions[bot],8,6,2,75.0,1,1,0,100.0,0,0,0,0.0
+924,Architectural Refactor for Project Structure,kzndotsh,open,2025-06-25T05:23:49Z,,3223709587,True,"sourcery-ai[bot], cloudflare-workers-and-pages[bot]",2,2,0,100.0,2,2,0,100.0,0,0,0,0.0
+415,[Feature] Add calculated elevation to rides,skofman,open,2023-01-13T18:35:14Z,,3203262102,True,None,19,13,6,68.42,0,0,0,0.0,4,0,4,0.0
+5112,[🐛 Bug]: Editing Saved Preset Causes 404 and Resets Custom Columns to Default,LibiKorol,closed,2025-06-30T06:20:24Z,2025-06-30T13:31:55Z,3187312401,True,"cursor[bot], vercel[bot]",6,2,4,33.33,1,1,0,100.0,4,1,3,25.0
+21913,dashboard: show upstream/downstream job in a job's fragment graph,xxchan,open,2025-05-19T08:11:31Z,,3076171257,True,None,1,1,0,100.0,1,0,1,0.0,0,0,0,0.0
+52446,Support ORDER BY/WHERE for all show commands,murphyatwork,open,2024-10-29T12:29:47Z,,3259210216,True,"github-actions[bot], cursor[bot]",3,3,0,100.0,3,3,0,100.0,1,1,0,100.0
+856,Dedupe ct log certificates + exponential backoff + custom offsets,tarunKoyalwar,closed,2025-07-14T12:13:31Z,2025-07-14T12:15:23Z,3219521968,True,coderabbitai[bot],13,11,2,84.62,1,1,0,100.0,0,0,0,0.0
+65,"Resizing, Movement and Pixalation issue",sahxzm,closed,2025-07-06T15:35:35Z,2025-07-09T09:57:11Z,3214141390,True,None,4,4,0,100.0,0,0,0,0.0,0,0,0,0.0
+123,fix .env check,olcan,closed,2025-04-22T21:30:23Z,2025-04-22T21:31:03Z,3223222184,True,None,1,1,0,100.0,0,0,0,0.0,0,0,0,0.0
+123,fix .env check,olcan,closed,2025-04-22T21:30:23Z,2025-04-22T21:31:03Z,3215809574,False,None,1,0,1,0.0,0,0,0,0.0,0,0,0,0.0
+5650,Discord invitation link on GitHub is expired,Jon-Elf,closed,2025-07-17T11:19:38Z,2025-07-17T13:16:48Z,3239343804,True,None,1,1,0,100.0,0,0,0,0.0,1,0,1,0.0
+1701,[Feature]: sync periodically from type-challenges,jiangshanmeta,open,2024-12-08T03:49:57Z,,3196988167,True,"coderabbitai[bot], vercel[bot]",1,1,0,100.0,2,2,0,100.0,1,1,0,100.0
+6210,Updating Account Settings not showing success toast,mattinannt,closed,2025-07-10T09:38:33Z,2025-07-10T13:19:24Z,3219210709,True,"github-actions[bot], coderabbitai[bot], copilot-pull-request-reviewer[bot]",1,1,0,100.0,2,2,0,100.0,2,2,0,100.0
+4391,Ensure tag values are strings,szokeasaurusrex,closed,2025-05-14T15:38:18Z,2025-07-09T11:12:44Z,3139974947,True,codecov[bot],2,1,1,50.0,7,1,6,14.29,2,0,2,0.0
+1861,"Since updating to version 4.13.0, I’m encountering the following error during CI tests:",cleptric,closed,2025-06-12T13:18:18Z,2025-06-13T15:24:18Z,3140903716,True,copilot-pull-request-reviewer[bot],2,1,1,50.0,2,0,2,0.0,2,1,1,50.0
+332,"⚡️ Obtain information about the group before joining through the group invitation link,",fusurus,closed,2025-07-10T10:13:01Z,2025-07-12T16:26:33Z,3225540340,True,"coderabbitai[bot], cursor[bot]",5,2,3,40.0,1,1,0,100.0,4,4,0,100.0
+1856,[bug] openinfernce-vercel whipes out span_kind if set already,mikeldking,closed,2025-07-12T06:41:26Z,2025-07-12T17:13:35Z,3225560842,True,"github-actions[bot], pkg-pr-new[bot]",5,1,4,20.0,3,2,1,66.67,0,0,0,0.0
+14221,MD view does not respect onboarding options,chargome,closed,2025-07-01T15:18:30Z,2025-07-03T12:16:45Z,3195513409,True,"codecov[bot], copilot-pull-request-reviewer[bot], seer-by-sentry[bot], cursor[bot], vercel[bot]",10,2,8,20.0,7,4,3,57.14,13,10,3,76.92
+4473,Add `session`-related methods to top-level API,szokeasaurusrex,closed,2025-06-16T09:28:40Z,2025-06-24T15:30:32Z,3149341709,True,codecov[bot],1,1,0,100.0,1,1,0,100.0,2,0,2,0.0
+5072,[➕ Feature]: Add OpenShift provider connection,smsnotes,closed,2025-06-22T06:15:35Z,2025-06-26T08:06:53Z,3165822621,True,"cursor[bot], vercel[bot]",4,3,1,75.0,1,1,0,100.0,5,4,1,80.0
+95,Detect manifest mandatory fields for all packages,linear[bot],closed,2024-06-09T16:23:45Z,2025-07-13T19:46:52Z,3226766039,True,None,3,3,0,100.0,0,0,0,0.0,0,0,0,0.0
+83,Will fail if pnpm-workspace.yaml is empty,segevfiner,closed,2024-05-15T09:56:00Z,2025-07-13T20:07:46Z,3226783535,True,cursor[bot],1,1,0,100.0,0,0,0,0.0,1,1,0,100.0
