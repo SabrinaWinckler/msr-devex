@@ -1,6 +1,6 @@
 issue_number,issue_title,issue_reporter,issue_state,issue_created_at,issue_closed_at,pr_id,has_bot_involvement,bot_names,total_commits,ai_commits,human_commits,bot_commits_percentage,total_comments,ai_comments,human_comments,bot_comments_percentage,total_reviews,ai_reviews,human_reviews,bot_reviews_percentage
 297,Convert hive-mind coordination system to TypeScript,lanemc,closed,2025-07-15T17:33:24Z,2025-07-22T15:18:38Z,3234102722,False,None,5,0,5,0.0,0,0,0,0.0,0,0,0,0.0
-1529,Investigate RSFC (Ruby Single File Components) Implementation Path,delano,open,2025-06-30T21:03:28Z,,3214782537,True,"claude[bot], github-advanced-security[bot], qodo-merge-pro[bot]",30,0,30,0.0,9,9,0,100.0,3,3,0,100.0
+1529,Investigate RSFC (Ruby Single File Components) Implementation Path,delano,open,2025-06-30T21:03:28Z,,3214782537,True,"qodo-merge-pro[bot], claude[bot], github-advanced-security[bot]",30,0,30,0.0,9,9,0,100.0,3,3,0,100.0
 1007,Fix signature validation and eliminate ALL mock/placeholder code,AtlantisPleb,closed,2025-06-20T23:28:03Z,2025-06-21T00:01:29Z,3164567685,False,None,2,0,2,0.0,0,0,0,0.0,0,0,0,0.0
 689,Add MS SQL Server dialect,gregorywaynepower,closed,2024-09-06T16:39:30Z,2025-06-23T17:22:48Z,3165176791,False,None,30,0,30,0.0,10,0,10,0.0,0,0,0,0.0
 1029,Agents page has module resolution error for @openagentsinc/sdk,AtlantisPleb,closed,2025-06-21T21:19:05Z,2025-06-21T22:53:44Z,3165431934,False,None,6,0,6,0.0,0,0,0,0.0,0,0,0,0.0
@@ -19,7 +19,7 @@ issue_number,issue_title,issue_reporter,issue_state,issue_created_at,issue_close
 857,Enhancement: Add structured logging with privacy scrubbing to notification package,tphakala,closed,2025-07-03T10:47:44Z,2025-07-03T12:55:45Z,3199027461,True,coderabbitai[bot],18,0,18,0.0,3,2,1,66.67,4,4,0,100.0
 4301,`Pkg.instantiate` shouldn't need to uncompress registries in the fast case,KristofferC,closed,2025-07-03T20:15:07Z,2025-07-04T08:34:05Z,3200679276,False,None,1,0,1,0.0,0,0,0,0.0,0,0,0,0.0
 66,Epic: Global and Local Scopes for ruv-swarm Communication and Data Isolation,jedarden,closed,2025-07-04T04:45:51Z,2025-07-04T21:44:07Z,3202692899,False,None,9,0,9,0.0,4,0,4,0.0,0,0,0,0.0
-23190,"[Bug] BucketDelayedDeliveryTracker.containsMessage is not thread-safe, but it's called from another thread",lhotari,open,2024-08-17T12:22:47Z,,3250080019,True,"github-actions[bot], codecov-commenter",2,0,2,0.0,4,2,2,50.0,3,0,3,0.0
+23190,"[Bug] BucketDelayedDeliveryTracker.containsMessage is not thread-safe, but it's called from another thread",lhotari,open,2024-08-17T12:22:47Z,,3250080019,True,"codecov-commenter, github-actions[bot]",2,0,2,0.0,4,2,2,50.0,3,0,3,0.0
 929,[UI/UX] Front-End Alias: Rename “Trading” Skill → “Crypto Trading”,jovirecall,closed,2025-07-21T20:22:31Z,2025-07-22T17:51:16Z,3250235391,True,"cursor[bot], vercel[bot]",5,5,0,100.0,1,1,0,100.0,1,1,0,100.0
 513,Implement comprehensive LiveStore events API with streaming and advanced filtering,schickling,open,2025-07-25T09:39:53Z,,3251544513,False,None,12,0,12,0.0,0,0,0,0.0,0,0,0,0.0
 72,feat: create configuration validation scripts,joshukraine,closed,2025-07-21T14:39:51Z,2025-07-22T12:40:14Z,3251609070,True,copilot-pull-request-reviewer[bot],15,0,15,0.0,0,0,0,0.0,1,1,0,100.0
@@ -28,7 +28,7 @@ issue_number,issue_title,issue_reporter,issue_state,issue_created_at,issue_close
 244,Option to write only compressed file,basicserge,closed,2025-05-25T22:54:20Z,2025-06-11T08:09:03Z,3109706862,True,sonarqubecloud[bot],1,0,1,0.0,1,1,0,100.0,0,0,0,0.0
 253,m4a format support,basicserge,closed,2025-06-02T19:41:07Z,2025-06-04T06:47:50Z,3116600521,True,sonarqubecloud[bot],8,0,8,0.0,1,1,0,100.0,0,0,0,0.0
 135828,crosscluster/physical: disable auto stats jobs on the standby tenant,msbutler,closed,2024-11-20T15:24:42Z,2025-07-21T18:29:37Z,3245552368,True,craig[bot],1,0,1,0.0,6,1,5,16.67,3,0,3,0.0
-188,"""HKQuantityTypeIdentifierDistanceWalkingRunning"" using queryStatisticsForQuantity causes crash",tomemmerson,closed,2025-07-18T15:48:22Z,2025-07-19T21:45:38Z,3245668511,True,"github-actions[bot], pkg-pr-new[bot], changeset-bot[bot]",2,0,2,0.0,3,3,0,100.0,0,0,0,0.0
+188,"""HKQuantityTypeIdentifierDistanceWalkingRunning"" using queryStatisticsForQuantity causes crash",tomemmerson,closed,2025-07-18T15:48:22Z,2025-07-19T21:45:38Z,3245668511,True,"pkg-pr-new[bot], github-actions[bot], changeset-bot[bot]",2,0,2,0.0,3,3,0,100.0,0,0,0,0.0
 91,Where's the demo! ,tonypee,open,2024-03-19T05:42:16Z,,3245809034,False,None,2,0,2,0.0,0,0,0,0.0,0,0,0,0.0
 453,Bug Report: `sessions.forEach is not a function` error in hive-mind sessions command,croakingtoad,open,2025-07-23T20:05:51Z,,3258872453,False,None,1,0,1,0.0,0,0,0,0.0,0,0,0,0.0
 14095,Accept Payment for Pharmacy Bills,buddhika75,closed,2025-07-22T21:53:04Z,2025-07-24T20:59:51Z,3260720963,True,coderabbitai[bot],12,0,12,0.0,1,1,0,100.0,2,2,0,100.0
@@ -36,24 +36,24 @@ issue_number,issue_title,issue_reporter,issue_state,issue_created_at,issue_close
 8,Test tree-sitter token matcher for other languages,mizchi,closed,2025-06-27T13:52:51Z,2025-06-30T13:35:57Z,3187718516,False,None,13,0,13,0.0,0,0,0,0.0,0,0,0,0.0
 63,Add Dot Notation Access for Output Hash in Workflow Configurations,obie,closed,2025-05-20T16:32:29Z,2025-05-24T17:34:32Z,3088611576,True,copilot-pull-request-reviewer[bot],9,0,9,0.0,0,0,0,0.0,2,1,1,50.0
 102,User input step,obie,closed,2025-05-29T20:19:48Z,2025-06-12T15:12:07Z,3138117853,True,copilot-pull-request-reviewer[bot],10,0,10,0.0,0,0,0,0.0,2,1,1,50.0
-1612,bug: skipBalance tx do not work once mined,roninjin10,open,2025-04-17T00:14:06Z,,3138264959,True,"coderabbitai[bot], changeset-bot[bot], vercel[bot]",8,0,8,0.0,3,3,0,100.0,1,1,0,100.0
+1612,bug: skipBalance tx do not work once mined,roninjin10,open,2025-04-17T00:14:06Z,,3138264959,True,"coderabbitai[bot], vercel[bot], changeset-bot[bot]",8,0,8,0.0,3,3,0,100.0,1,1,0,100.0
 4349,require admin permissions not persisting between machines,thebotsmith,open,2025-06-12T09:17:34Z,,3140025663,True,"coderabbitai[bot], cloudflare-workers-and-pages[bot], sonarqubecloud[bot]",1,0,1,0.0,3,3,0,100.0,0,0,0,0.0
 107,[bug]PromptX工具沙箱缓存机制不支持工具集更新,simonfishgit,closed,2025-07-03T05:20:38Z,2025-07-10T01:44:56Z,3203910456,False,None,3,0,3,0.0,0,0,0,0.0,0,0,0,0.0
 107,[bug]PromptX工具沙箱缓存机制不支持工具集更新,simonfishgit,closed,2025-07-03T05:20:38Z,2025-07-10T01:44:56Z,3204479528,False,None,2,0,2,0.0,0,0,0,0.0,0,0,0,0.0
 3573,Cannot export pylock.toml to requirements.txt,RaczeQ,closed,2025-07-18T11:36:38Z,2025-07-21T02:15:22Z,3246950577,True,codecov[bot],1,1,0,100.0,1,1,0,100.0,0,0,0,0.0
 487,Optional schema fields cause errors when no default value is provided,rubywwwilde,closed,2025-07-20T13:10:48Z,2025-07-21T11:30:15Z,3248259820,True,None,1,1,0,100.0,1,0,1,0.0,0,0,0,0.0
-165,Relative or searchable line numbers,holroy,closed,2023-02-18T14:53:36Z,2025-07-21T18:30:07Z,3249619721,True,"netlify[bot], cursor[bot]",2,0,2,0.0,1,1,0,100.0,1,1,0,100.0
+165,Relative or searchable line numbers,holroy,closed,2023-02-18T14:53:36Z,2025-07-21T18:30:07Z,3249619721,True,"cursor[bot], netlify[bot]",2,0,2,0.0,1,1,0,100.0,1,1,0,100.0
 36,Feature Request: Integrate AI-Framework collaboration rules with SuperClaude,nhat-nguyen-airbnb,open,2025-06-26T06:53:10Z,,3178007458,False,None,2,0,2,0.0,1,0,1,0.0,3,0,3,0.0
 1106,feat: Add Storybook for component development,AtlantisPleb,closed,2025-06-26T16:42:16Z,2025-06-26T19:37:15Z,3179729495,True,vercel[bot],28,0,28,0.0,1,1,0,100.0,0,0,0,0.0
-1018,Implement context engineering,MervinPraison,closed,2025-07-19T06:14:41Z,2025-07-19T08:45:52Z,3245011006,True,"gemini-code-assist[bot], coderabbitai[bot], github-actions[bot]",3,3,0,100.0,11,6,5,54.55,5,5,0,100.0
+1018,Implement context engineering,MervinPraison,closed,2025-07-19T06:14:41Z,2025-07-19T08:45:52Z,3245011006,True,"coderabbitai[bot], gemini-code-assist[bot], github-actions[bot]",3,3,0,100.0,11,6,5,54.55,5,5,0,100.0
 1199,"Session History Inconsistency: Desktop Shows Local Claude Code Files, Mobile Shows Convex Sessions",AtlantisPleb,closed,2025-07-26T21:41:19Z,2025-07-26T23:45:32Z,3266170682,True,coderabbitai[bot],4,0,4,0.0,3,2,1,66.67,3,3,0,100.0
 1198,Add historical APM chart with time-series visualization,AtlantisPleb,closed,2025-07-26T21:20:42Z,2025-07-27T02:18:27Z,3266316354,True,coderabbitai[bot],4,0,4,0.0,7,3,4,42.86,2,2,0,100.0
-1215,Integrate Enhanced Convex Rust Client with OpenAuth Authentication System,AtlantisPleb,closed,2025-07-27T05:05:51Z,2025-07-27T06:40:03Z,3266763733,True,"claude[bot], coderabbitai[bot]",6,0,6,0.0,4,4,0,100.0,0,0,0,0.0
+1215,Integrate Enhanced Convex Rust Client with OpenAuth Authentication System,AtlantisPleb,closed,2025-07-27T05:05:51Z,2025-07-27T06:40:03Z,3266763733,True,"coderabbitai[bot], claude[bot]",6,0,6,0.0,4,4,0,100.0,0,0,0,0.0
 18500,Prefect does not support setting flow run name when starting a flow run for a deployment from the CLI,cdl-altium,closed,2025-07-14T14:17:01Z,2025-07-14T20:35:36Z,3229176248,True,codspeed-hq[bot],1,0,1,0.0,1,1,0,100.0,0,0,0,0.0
 16990,Allow `bun pm pack` just to return the generated filename,pierskarsenbarg,closed,2025-02-02T13:05:06Z,2025-07-15T08:14:59Z,3230307499,True,None,5,4,1,80.0,1,0,1,0.0,0,0,0,0.0
 266,Fix Failing CI/CD Tests - Remove or Update Non-Existent Test Configurations,ruvnet,closed,2025-07-15T00:09:29Z,2025-07-15T04:16:17Z,3230351703,False,None,8,0,8,0.0,5,0,5,0.0,0,0,0,0.0
 986,feat: Implement local-first chat persistence with PGlite,AtlantisPleb,closed,2025-06-19T15:52:01Z,2025-06-20T01:21:19Z,3161355858,False,None,4,0,4,0.0,0,0,0,0.0,0,0,0,0.0
-127,Bug: --offline flag not working for blocks command,zhiyue,closed,2025-06-20T12:39:00Z,2025-06-20T13:24:12Z,3163243464,True,"gemini-code-assist[bot], coderabbitai[bot], pkg-pr-new[bot]",1,0,1,0.0,2,2,0,100.0,3,2,1,66.67
+127,Bug: --offline flag not working for blocks command,zhiyue,closed,2025-06-20T12:39:00Z,2025-06-20T13:24:12Z,3163243464,True,"coderabbitai[bot], pkg-pr-new[bot], gemini-code-assist[bot]",1,0,1,0.0,2,2,0,100.0,3,2,1,66.67
 94,Workflows Coming Soon - tools reimagined,guidedways,closed,2025-06-20T19:42:16Z,2025-06-20T20:08:12Z,3164250713,True,gemini-code-assist[bot],27,0,27,0.0,0,0,0,0.0,2,2,0,100.0
 637,update JuliaSyntax to v1.0,aviatesk,open,2025-04-11T16:38:59Z,,3275029115,True,None,5,3,2,60.0,1,0,1,0.0,0,0,0,0.0
 931,"Rename ""Agent Leaderboard"" to ""Skill Leaderboard""",jovirecall,open,2025-07-21T20:28:39Z,,3253582273,True,vercel[bot],1,1,0,100.0,2,1,1,50.0,0,0,0,0.0
@@ -69,7 +69,7 @@ issue_number,issue_title,issue_reporter,issue_state,issue_created_at,issue_close
 74,Support opentofu,chenrui333,closed,2024-01-27T04:58:28Z,2025-06-06T11:02:01Z,3124372773,False,None,5,0,5,0.0,0,0,0,0.0,0,0,0,0.0
 34527,File save blocking causes hot reload delays compared to other editors,sausaw,closed,2025-07-16T10:02:08Z,2025-07-16T10:40:46Z,3235395709,True,cla-bot[bot],1,0,1,0.0,1,1,0,100.0,0,0,0,0.0
 1603,[Question] Android App - set preferred view,WorldTeacher,closed,2025-06-13T08:51:39Z,2025-07-17T08:24:34Z,3224085262,False,None,8,0,8,0.0,1,0,1,0.0,8,0,8,0.0
-1252,Remove all 'as any' type assertions from the codebase,AtlantisPleb,closed,2025-07-28T12:08:44Z,2025-07-28T12:51:49Z,3269703997,True,"claude[bot], coderabbitai[bot]",2,0,2,0.0,3,3,0,100.0,2,2,0,100.0
+1252,Remove all 'as any' type assertions from the codebase,AtlantisPleb,closed,2025-07-28T12:08:44Z,2025-07-28T12:51:49Z,3269703997,True,"coderabbitai[bot], claude[bot]",2,0,2,0.0,3,3,0,100.0,2,2,0,100.0
 13419,"If  'Pharmacy Transfer is by Retail Rate' Option is True, Purchase Rate was incorrect in Disbursement Report",DeshaniPubudu,closed,2025-06-27T06:29:38Z,2025-07-28T13:37:29Z,3269888763,True,coderabbitai[bot],10,0,10,0.0,1,1,0,100.0,1,1,0,100.0
 232,[BUG] KeyError 'name' when importing memory.json file,egoes,closed,2025-07-18T07:01:05Z,2025-07-28T20:52:16Z,3270842985,False,None,2,0,2,0.0,0,0,0,0.0,2,0,2,0.0
 488,🚀 Claude Flow Alpha.74: SQLite & Async/Await Reliability Fixes,ruvnet,closed,2025-07-28T19:02:52Z,2025-07-28T19:11:41Z,3271050710,False,None,1,0,1,0.0,0,0,0,0.0,0,0,0,0.0
@@ -84,11 +84,11 @@ issue_number,issue_title,issue_reporter,issue_state,issue_created_at,issue_close
 344,"command line switches ignored, unreported or misreported",jimweller,open,2025-07-17T06:48:41Z,,3238626702,False,None,1,0,1,0.0,0,0,0,0.0,0,0,0,0.0
 1542,Accept api_key in from_provider,jeroenvds,closed,2025-05-22T08:22:22Z,2025-07-17T22:34:21Z,3240533897,True,ellipsis-dev[bot],3,0,3,0.0,0,0,0,0.0,1,1,0,100.0
 32,Claude Code hook configuration broken - multi-agent file locking non-functional,AstroMined,closed,2025-07-12T21:21:45Z,2025-07-14T17:32:53Z,3225792521,False,None,1,0,1,0.0,0,0,0,0.0,0,0,0,0.0
-4914,Service Types and Test Services,lalalune,closed,2025-06-04T07:10:30Z,2025-07-15T07:04:08Z,3226645641,True,"claude[bot], coderabbitai[bot], cursor[bot], github-advanced-security[bot]",22,3,19,13.64,29,26,3,89.66,11,11,0,100.0
+4914,Service Types and Test Services,lalalune,closed,2025-06-04T07:10:30Z,2025-07-15T07:04:08Z,3226645641,True,"coderabbitai[bot], cursor[bot], claude[bot], github-advanced-security[bot]",22,3,19,13.64,29,26,3,89.66,11,11,0,100.0
 29,Fix CI workflow for new project structure,steipete,closed,2025-07-26T13:06:01Z,2025-07-27T15:26:35Z,3267198858,True,"cursor[bot], gitguardian[bot]",13,0,13,0.0,1,1,0,100.0,1,1,0,100.0
 24138,[Bug] pulsar-admin log showed http 412 error when split bundle,erictarrence,open,2025-03-28T11:26:36Z,,2959025892,True,github-actions[bot],1,0,1,0.0,4,1,3,25.0,1,0,1,0.0
 836,Broken links to notebooks in documentation,justaddcoffee,closed,2025-04-06T15:46:33Z,2025-06-05T23:32:27Z,2975165913,False,None,2,0,2,0.0,0,0,0,0.0,1,0,1,0.0
-30183,Remove inter ontology link GO:0036402 is_a GO:1901800,ValWood,closed,2025-04-25T12:52:35Z,2025-04-30T04:39:23Z,3029855439,True,"github-actions[bot], dragon-ai-agent",1,0,1,0.0,1,1,0,100.0,1,1,0,100.0
+30183,Remove inter ontology link GO:0036402 is_a GO:1901800,ValWood,closed,2025-04-25T12:52:35Z,2025-04-30T04:39:23Z,3029855439,True,"dragon-ai-agent, github-actions[bot]",1,0,1,0.0,1,1,0,100.0,1,1,0,100.0
 1914,Cannot convert text/plain uuid in requestBody to string,codeout,open,2025-02-25T07:53:22Z,,3054252195,False,None,1,0,1,0.0,0,0,0,0.0,1,0,1,0.0
 48944,"geo/geomfn: implement ST_GeometricMedian({geometry,float8,int4,bool})",otan,open,2020-05-14T15:33:30Z,,3257330452,False,None,3,0,3,0.0,1,0,1,0.0,0,0,0,0.0
 1149,Integrate Commander's Draggable/Resizable Pane System and Hotbar into OpenAgents,AtlantisPleb,closed,2025-07-24T02:14:54Z,2025-07-24T03:22:43Z,3258270000,False,None,4,0,4,0.0,1,0,1,0.0,0,0,0,0.0

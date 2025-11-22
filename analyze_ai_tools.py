@@ -17,6 +17,7 @@ import seaborn as sns
 import warnings
 import re
 from collections import Counter, defaultdict
+from scipy import stats
 warnings.filterwarnings('ignore')
 
 def load_json_file(filepath):
@@ -1256,6 +1257,439 @@ def calculate_intervention_frequency(data):
         'intervention_details': intervention_df
     }
 
+def collect_pr_level_data(data):
+    """
+    Coleta dados em nível de PR para análise de correlação
+    Retorna DataFrame com métricas por PR
+    """
+    pr_data = []
+    
+    prs = data['prs_json']
+    if isinstance(prs, list):
+        pr_list = prs
+    else:
+        pr_list = list(prs.values())
+    
+    for pr in pr_list:
+        if not isinstance(pr, dict):
+            continue
+        
+        pr_id = str(pr.get('id', ''))
+        pr_key = f"{pr_id}.json"
+        
+        # Coleta métricas básicas do PR
+        created = parse_datetime(pr.get('created_at'))
+        merged = parse_datetime(pr.get('merged_at'))
+        
+        # Conta commits
+        commits = data['pr_commits'].get(pr_key, [])
+        num_commits = len(commits) if isinstance(commits, list) else 0
+        
+        # Separa commits AI vs Humanos
+        ai_commits = 0
+        human_commits = 0
+        if isinstance(commits, list):
+            for commit in commits:
+                if isinstance(commit, dict):
+                    author = commit.get('author')
+                    author_login = author.get('login', '') if author and isinstance(author, dict) else ''
+                    if is_ai_bot(author_login):
+                        ai_commits += 1
+                    else:
+                        human_commits += 1
+        
+        # Conta comentários totais
+        pr_comments = data['pr_comments'].get(pr_key, [])
+        pr_review_comments = data['pr_review_comments'].get(pr_key, [])
+        num_comments = 0
+        ai_comments = 0
+        human_comments = 0
+        
+        for comments_list in [pr_comments, pr_review_comments]:
+            if isinstance(comments_list, list):
+                num_comments += len(comments_list)
+                for comment in comments_list:
+                    if isinstance(comment, dict):
+                        user = comment.get('user')
+                        user_login = user.get('login', '') if user and isinstance(user, dict) else ''
+                        if is_ai_bot(user_login):
+                            ai_comments += 1
+                        else:
+                            human_comments += 1
+        
+        # Conta reviews
+        reviews = data['pr_reviews'].get(pr_key, [])
+        num_reviews = len(reviews) if isinstance(reviews, list) else 0
+        
+        ai_reviews = 0
+        human_reviews = 0
+        if isinstance(reviews, list):
+            for review in reviews:
+                if isinstance(review, dict):
+                    user = review.get('user')
+                    user_login = user.get('login', '') if user and isinstance(user, dict) else ''
+                    if is_ai_bot(user_login):
+                        ai_reviews += 1
+                    else:
+                        human_reviews += 1
+        
+        # Calcula tempo até merge
+        time_to_merge = None
+        if created and merged:
+            time_to_merge = (merged - created).total_seconds() / 3600  # em horas
+        
+        # Verifica se PR tem issues relacionadas
+        has_related_issue = False
+        if not data['related_issues'].empty:
+            has_related_issue = pr_id in data['related_issues']['pr_id'].astype(str).values
+        
+        # Determina se tem envolvimento de AI
+        has_ai_involvement = (ai_commits > 0 or ai_comments > 0 or ai_reviews > 0)
+        
+        pr_data.append({
+            'pr_id': pr_id,
+            'total_commits': num_commits,
+            'ai_commits': ai_commits,
+            'human_commits': human_commits,
+            'ai_commits_percentage': (ai_commits / num_commits * 100) if num_commits > 0 else 0,
+            'total_comments': num_comments,
+            'ai_comments': ai_comments,
+            'human_comments': human_comments,
+            'ai_comments_percentage': (ai_comments / num_comments * 100) if num_comments > 0 else 0,
+            'total_reviews': num_reviews,
+            'ai_reviews': ai_reviews,
+            'human_reviews': human_reviews,
+            'ai_reviews_percentage': (ai_reviews / num_reviews * 100) if num_reviews > 0 else 0,
+            'time_to_merge_hours': time_to_merge,
+            'has_related_issue': has_related_issue,
+            'has_ai_involvement': has_ai_involvement,
+            'is_merged': merged is not None
+        })
+    
+    return pd.DataFrame(pr_data)
+
+
+def calculate_spearman_correlations(all_data):
+    """
+    Calcula correlações de Spearman entre métricas de interação com ferramentas e resultados
+    
+    Hipóteses testadas:
+    1. Mais interações com AI → Mais commits?
+    2. Mais comentários de AI → Menos tempo para merge?
+    3. Mais reviews de AI → Mais issues relacionadas?
+    4. Mais commits de AI → Mais comentários humanos (necessidade de correção)?
+    """
+    
+    print("\n" + "="*80)
+    print("ANÁLISE DE CORRELAÇÃO DE SPEARMAN")
+    print("="*80)
+    print("\nTestando hipóteses sobre relação entre interações com ferramentas e resultados...")
+    
+    correlation_results = {}
+    
+    for tool_name, data in all_data.items():
+        print(f"\n### {tool_name} ###")
+        
+        # Coleta dados em nível de PR
+        pr_df = collect_pr_level_data(data)
+        
+        if pr_df.empty or len(pr_df) < 3:
+            print(f"  Dados insuficientes para análise de correlação (n={len(pr_df)})")
+            continue
+        
+        # Remove PRs sem tempo de merge para algumas análises
+        pr_df_merged = pr_df[pr_df['time_to_merge_hours'].notna()].copy()
+        
+        correlations = {}
+        
+        # Hipótese 1: Mais comentários de AI → Mais commits totais?
+        if len(pr_df) >= 3:
+            try:
+                corr, p_value = stats.spearmanr(pr_df['ai_comments'], pr_df['total_commits'])
+                correlations['ai_comments_vs_total_commits'] = {
+                    'correlation': corr,
+                    'p_value': p_value,
+                    'significant': p_value < 0.05,
+                    'n': len(pr_df)
+                }
+                sig = "✓ SIGNIFICANTE" if p_value < 0.05 else "✗ Não significante"
+                print(f"  H1: AI Comments → Total Commits: ρ={corr:.3f}, p={p_value:.4f} {sig}")
+            except:
+                pass
+        
+        # Hipótese 2: Mais comentários de AI → Mais commits humanos (correções)?
+        if len(pr_df) >= 3:
+            try:
+                corr, p_value = stats.spearmanr(pr_df['ai_comments'], pr_df['human_commits'])
+                correlations['ai_comments_vs_human_commits'] = {
+                    'correlation': corr,
+                    'p_value': p_value,
+                    'significant': p_value < 0.05,
+                    'n': len(pr_df)
+                }
+                sig = "✓ SIGNIFICANTE" if p_value < 0.05 else "✗ Não significante"
+                print(f"  H2: AI Comments → Human Commits: ρ={corr:.3f}, p={p_value:.4f} {sig}")
+            except:
+                pass
+        
+        # Hipótese 3: Mais reviews de AI → Menos tempo para merge?
+        if len(pr_df_merged) >= 3:
+            try:
+                corr, p_value = stats.spearmanr(pr_df_merged['ai_reviews'], pr_df_merged['time_to_merge_hours'])
+                correlations['ai_reviews_vs_time_to_merge'] = {
+                    'correlation': corr,
+                    'p_value': p_value,
+                    'significant': p_value < 0.05,
+                    'n': len(pr_df_merged)
+                }
+                sig = "✓ SIGNIFICANTE" if p_value < 0.05 else "✗ Não significante"
+                print(f"  H3: AI Reviews → Time to Merge: ρ={corr:.3f}, p={p_value:.4f} {sig}")
+            except:
+                pass
+        
+        # Hipótese 4: Mais comentários totais → Mais tempo para merge?
+        if len(pr_df_merged) >= 3:
+            try:
+                corr, p_value = stats.spearmanr(pr_df_merged['total_comments'], pr_df_merged['time_to_merge_hours'])
+                correlations['total_comments_vs_time_to_merge'] = {
+                    'correlation': corr,
+                    'p_value': p_value,
+                    'significant': p_value < 0.05,
+                    'n': len(pr_df_merged)
+                }
+                sig = "✓ SIGNIFICANTE" if p_value < 0.05 else "✗ Não significante"
+                print(f"  H4: Total Comments → Time to Merge: ρ={corr:.3f}, p={p_value:.4f} {sig}")
+            except:
+                pass
+        
+        # Hipótese 5: Mais reviews totais → Mais commits?
+        if len(pr_df) >= 3:
+            try:
+                corr, p_value = stats.spearmanr(pr_df['total_reviews'], pr_df['total_commits'])
+                correlations['total_reviews_vs_total_commits'] = {
+                    'correlation': corr,
+                    'p_value': p_value,
+                    'significant': p_value < 0.05,
+                    'n': len(pr_df)
+                }
+                sig = "✓ SIGNIFICANTE" if p_value < 0.05 else "✗ Não significante"
+                print(f"  H5: Total Reviews → Total Commits: ρ={corr:.3f}, p={p_value:.4f} {sig}")
+            except:
+                pass
+        
+        # Hipótese 6: Mais commits de AI → Mais comentários humanos?
+        if len(pr_df) >= 3:
+            try:
+                corr, p_value = stats.spearmanr(pr_df['ai_commits'], pr_df['human_comments'])
+                correlations['ai_commits_vs_human_comments'] = {
+                    'correlation': corr,
+                    'p_value': p_value,
+                    'significant': p_value < 0.05,
+                    'n': len(pr_df)
+                }
+                sig = "✓ SIGNIFICANTE" if p_value < 0.05 else "✗ Não significante"
+                print(f"  H6: AI Commits → Human Comments: ρ={corr:.3f}, p={p_value:.4f} {sig}")
+            except:
+                pass
+        
+        # Hipótese 7: Mais % de AI → Menos tempo para merge?
+        if len(pr_df_merged) >= 3:
+            try:
+                # Calcula % total de AI (média de commits e comments)
+                pr_df_merged['ai_percentage'] = (pr_df_merged['ai_commits_percentage'] + pr_df_merged['ai_comments_percentage']) / 2
+                corr, p_value = stats.spearmanr(pr_df_merged['ai_percentage'], pr_df_merged['time_to_merge_hours'])
+                correlations['ai_percentage_vs_time_to_merge'] = {
+                    'correlation': corr,
+                    'p_value': p_value,
+                    'significant': p_value < 0.05,
+                    'n': len(pr_df_merged)
+                }
+                sig = "✓ SIGNIFICANTE" if p_value < 0.05 else "✗ Não significante"
+                print(f"  H7: AI Percentage → Time to Merge: ρ={corr:.3f}, p={p_value:.4f} {sig}")
+            except:
+                pass
+        
+        correlation_results[tool_name] = {
+            'correlations': correlations,
+            'pr_data': pr_df
+        }
+    
+    return correlation_results
+
+
+def create_correlation_heatmaps(correlation_results):
+    """Cria heatmaps de correlação para cada ferramenta"""
+    
+    print("\n13. Gerando heatmaps de correlação...")
+    
+    for tool_name, results in correlation_results.items():
+        pr_df = results['pr_data']
+        
+        if pr_df.empty or len(pr_df) < 3:
+            continue
+        
+        # Seleciona colunas numéricas para correlação
+        numeric_cols = [
+            'total_commits', 'ai_commits', 'human_commits',
+            'total_comments', 'ai_comments', 'human_comments',
+            'total_reviews', 'ai_reviews', 'human_reviews',
+            'time_to_merge_hours'
+        ]
+        
+        # Filtra colunas que existem no DataFrame
+        available_cols = [col for col in numeric_cols if col in pr_df.columns]
+        
+        # Remove linhas com NaN na coluna time_to_merge_hours
+        correlation_df = pr_df[available_cols].dropna()
+        
+        if len(correlation_df) < 3:
+            print(f"   - Dados insuficientes para {tool_name}")
+            continue
+        
+        # Calcula matriz de correlação de Spearman
+        corr_matrix = correlation_df.corr(method='spearman')
+        
+        # Cria heatmap
+        fig, ax = plt.subplots(figsize=(12, 10))
+        
+        # Cria máscara para triângulo superior
+        mask = np.triu(np.ones_like(corr_matrix, dtype=bool))
+        
+        # Plota heatmap
+        sns.heatmap(corr_matrix, mask=mask, annot=True, fmt='.2f', 
+                   cmap='coolwarm', center=0, vmin=-1, vmax=1,
+                   square=True, linewidths=1, cbar_kws={"shrink": 0.8},
+                   ax=ax)
+        
+        ax.set_title(f'Spearman Correlation Matrix - {tool_name}\n(n={len(correlation_df)} PRs)',
+                    fontsize=14, weight='bold', pad=20)
+        
+        # Ajusta labels
+        labels = [col.replace('_', ' ').title() for col in available_cols]
+        ax.set_xticklabels(labels, rotation=45, ha='right')
+        ax.set_yticklabels(labels, rotation=0)
+        
+        plt.tight_layout()
+        plt.savefig(f'spearman_correlation_{tool_name.lower()}.png', dpi=300, bbox_inches='tight')
+        print(f"   - spearman_correlation_{tool_name.lower()}.png gerado")
+        plt.close()
+    
+    # Cria gráfico comparativo de correlações significativas
+    fig, axes = plt.subplots(1, 3, figsize=(20, 6))
+    fig.suptitle('Significant Spearman Correlations by Tool (p < 0.05)', 
+                fontsize=16, weight='bold')
+    
+    for idx, (tool_name, results) in enumerate(correlation_results.items()):
+        correlations = results['correlations']
+        
+        # Filtra apenas correlações significativas
+        sig_corrs = {k: v for k, v in correlations.items() if v.get('significant', False)}
+        
+        if not sig_corrs:
+            axes[idx].text(0.5, 0.5, 'No significant\ncorrelations found', 
+                          ha='center', va='center', fontsize=12)
+            axes[idx].set_xlim(0, 1)
+            axes[idx].set_ylim(0, 1)
+            axes[idx].set_title(tool_name)
+            axes[idx].axis('off')
+            continue
+        
+        # Prepara dados para plotagem
+        labels = []
+        values = []
+        colors = []
+        
+        for key, data in sig_corrs.items():
+            # Formata label
+            label = key.replace('_vs_', '\n→\n').replace('_', ' ').title()
+            labels.append(label[:30])  # Limita tamanho
+            
+            corr = data['correlation']
+            values.append(corr)
+            
+            # Cor baseada na força da correlação
+            if abs(corr) > 0.5:
+                colors.append('#d62728' if corr < 0 else '#2ca02c')  # Forte
+            else:
+                colors.append('#ff7f0e')  # Moderada
+        
+        # Plota barras horizontais
+        y_pos = np.arange(len(labels))
+        axes[idx].barh(y_pos, values, color=colors, alpha=0.7)
+        axes[idx].set_yticks(y_pos)
+        axes[idx].set_yticklabels(labels, fontsize=8)
+        axes[idx].set_xlabel('Spearman ρ')
+        axes[idx].set_title(f'{tool_name}\n({len(sig_corrs)} significant)', fontsize=12)
+        axes[idx].axvline(x=0, color='black', linestyle='-', linewidth=0.8)
+        axes[idx].grid(axis='x', alpha=0.3)
+        axes[idx].set_xlim(-1, 1)
+        
+        # Adiciona valores nas barras
+        for i, v in enumerate(values):
+            x_pos = v + 0.05 if v > 0 else v - 0.05
+            ha = 'left' if v > 0 else 'right'
+            axes[idx].text(x_pos, i, f'{v:.2f}', va='center', ha=ha, fontsize=9, weight='bold')
+    
+    plt.tight_layout()
+    plt.savefig('spearman_significant_correlations.png', dpi=300, bbox_inches='tight')
+    print("   - spearman_significant_correlations.png gerado")
+    plt.close()
+
+
+def export_correlation_results(correlation_results):
+    """Exporta resultados de correlação para CSV"""
+    
+    print("\n14. Exportando resultados de correlação...")
+    
+    # DataFrame consolidado de todas as correlações
+    all_correlations = []
+    
+    for tool_name, results in correlation_results.items():
+        correlations = results['correlations']
+        
+        for corr_name, corr_data in correlations.items():
+            all_correlations.append({
+                'Tool': tool_name,
+                'Correlation': corr_name,
+                'Spearman_rho': corr_data['correlation'],
+                'P_value': corr_data['p_value'],
+                'Significant': corr_data['significant'],
+                'Sample_size': corr_data['n'],
+                'Strength': 'Strong' if abs(corr_data['correlation']) > 0.5 else 'Moderate' if abs(corr_data['correlation']) > 0.3 else 'Weak'
+            })
+    
+    correlations_df = pd.DataFrame(all_correlations)
+    correlations_df.to_csv('spearman_correlations_summary.csv', index=False)
+    print("   - spearman_correlations_summary.csv gerado")
+    
+    # Exporta dados em nível de PR para cada ferramenta
+    for tool_name, results in correlation_results.items():
+        pr_df = results['pr_data']
+        if not pr_df.empty:
+            pr_df.to_csv(f'pr_level_data_{tool_name.lower()}.csv', index=False)
+            print(f"   - pr_level_data_{tool_name.lower()}.csv gerado")
+    
+    # Cria resumo interpretativo
+    print("\n" + "="*80)
+    print("RESUMO DAS CORRELAÇÕES SIGNIFICATIVAS (p < 0.05)")
+    print("="*80)
+    
+    sig_df = correlations_df[correlations_df['Significant'] == True]
+    
+    if sig_df.empty:
+        print("\nNenhuma correlação significativa foi encontrada.")
+    else:
+        print(f"\nTotal de correlações significativas: {len(sig_df)}")
+        print("\nPor ferramenta:")
+        for tool in sig_df['Tool'].unique():
+            tool_sig = sig_df[sig_df['Tool'] == tool]
+            print(f"\n  {tool}: {len(tool_sig)} correlações significativas")
+            for _, row in tool_sig.iterrows():
+                direction = "positiva" if row['Spearman_rho'] > 0 else "negativa"
+                print(f"    • {row['Correlation']}: ρ={row['Spearman_rho']:.3f} ({direction}, {row['Strength'].lower()})")
+    
+    return correlations_df
+
 def main():
     """Função principal"""
     print("="*80)
@@ -1438,12 +1872,27 @@ def main():
     axes[1,0].set_ylabel('Hours')
     axes[1,0].set_xlabel('Tool')
     axes[1,0].tick_params(axis='x', rotation=45)
+    axes[1,0].grid(axis='y', alpha=0.3)
     
-    flow_df['tempo_ate_merge_mean_hours'].plot(kind='bar', ax=axes[1,1], color=['#1f77b4', '#ff7f0e', '#2ca02c'])
-    axes[1,1].set_title('Average Time to Merge (hours)')
-    axes[1,1].set_ylabel('Hours')
-    axes[1,1].set_xlabel('Tool')
-    axes[1,1].tick_params(axis='x', rotation=45)
+    # Gráfico 4: Tempo até merge (corrigido)
+    ax = axes[1,1]
+    tools_names = flow_df.index.tolist()
+    values = flow_df['tempo_ate_merge_mean_hours'].values
+    bars = ax.bar(tools_names, values, color=['#1f77b4', '#ff7f0e', '#2ca02c'])
+    
+    # Adiciona valores em cima das barras
+    for i, (bar, value) in enumerate(zip(bars, values)):
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2., height,
+                f'{value:.1f}h',
+                ha='center', va='bottom', fontsize=10, fontweight='bold')
+    
+    ax.set_title('Average Time to Merge (hours)')
+    ax.set_ylabel('Hours')
+    ax.set_xlabel('Tool')
+    ax.tick_params(axis='x', rotation=45)
+    ax.grid(axis='y', alpha=0.3)
+    ax.set_ylim(0, max(values) * 1.15)  # Adiciona 15% de espaço para os labels
     
     plt.tight_layout()
     plt.savefig('flow_metrics.png', dpi=300, bbox_inches='tight')
@@ -1749,7 +2198,7 @@ def main():
     plt.close()
     
     # Gráfico de barras: Carga cognitiva com vs sem AI
-    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
     fig.suptitle('Cognitive Load Comparison: PRs WITH vs WITHOUT AI', fontsize=16, weight='bold')
     
     tools_list = list(cognitive_load_ai.keys())
@@ -1760,58 +2209,44 @@ def main():
     with_ai_comments = [cognitive_load_ai[tool]['with_ai']['avg_comments'] for tool in tools_list]
     without_ai_comments = [cognitive_load_ai[tool]['without_ai']['avg_comments'] for tool in tools_list]
     
-    axes[0, 0].bar(x - width/2, with_ai_comments, width, label='With AI', color='#e74c3c')
-    axes[0, 0].bar(x + width/2, without_ai_comments, width, label='Without AI', color='#3498db')
-    axes[0, 0].set_xlabel('Tool')
-    axes[0, 0].set_ylabel('Average Comments')
-    axes[0, 0].set_title('Average Comments per PR')
-    axes[0, 0].set_xticks(x)
-    axes[0, 0].set_xticklabels(tools_list, rotation=45)
-    axes[0, 0].legend()
-    axes[0, 0].grid(axis='y', alpha=0.3)
+    axes[0].bar(x - width/2, with_ai_comments, width, label='With AI', color='#e74c3c')
+    axes[0].bar(x + width/2, without_ai_comments, width, label='Without AI', color='#3498db')
+    axes[0].set_xlabel('Tool')
+    axes[0].set_ylabel('Average Comments')
+    axes[0].set_title('Average Comments per PR')
+    axes[0].set_xticks(x)
+    axes[0].set_xticklabels(tools_list, rotation=45)
+    axes[0].legend()
+    axes[0].grid(axis='y', alpha=0.3)
     
     # Gráfico 2: Média de reviews
     with_ai_reviews = [cognitive_load_ai[tool]['with_ai']['avg_reviews'] for tool in tools_list]
     without_ai_reviews = [cognitive_load_ai[tool]['without_ai']['avg_reviews'] for tool in tools_list]
     
-    axes[0, 1].bar(x - width/2, with_ai_reviews, width, label='With AI', color='#e74c3c')
-    axes[0, 1].bar(x + width/2, without_ai_reviews, width, label='Without AI', color='#3498db')
-    axes[0, 1].set_xlabel('Tool')
-    axes[0, 1].set_ylabel('Average Reviews')
-    axes[0, 1].set_title('Average Reviews per PR')
-    axes[0, 1].set_xticks(x)
-    axes[0, 1].set_xticklabels(tools_list, rotation=45)
-    axes[0, 1].legend()
-    axes[0, 1].grid(axis='y', alpha=0.3)
+    axes[1].bar(x - width/2, with_ai_reviews, width, label='With AI', color='#e74c3c')
+    axes[1].bar(x + width/2, without_ai_reviews, width, label='Without AI', color='#3498db')
+    axes[1].set_xlabel('Tool')
+    axes[1].set_ylabel('Average Reviews')
+    axes[1].set_title('Average Reviews per PR')
+    axes[1].set_xticks(x)
+    axes[1].set_xticklabels(tools_list, rotation=45)
+    axes[1].legend()
+    axes[1].grid(axis='y', alpha=0.3)
     
     # Gráfico 3: Média de commits
     with_ai_commits_avg = [cognitive_load_ai[tool]['with_ai']['avg_commits'] for tool in tools_list]
     without_ai_commits_avg = [cognitive_load_ai[tool]['without_ai']['avg_commits'] for tool in tools_list]
     
-    axes[1, 0].bar(x - width/2, with_ai_commits_avg, width, label='With AI', color='#e74c3c')
-    axes[1, 0].bar(x + width/2, without_ai_commits_avg, width, label='Without AI', color='#3498db')
-    axes[1, 0].set_xlabel('Tool')
-    axes[1, 0].set_ylabel('Average Commits')
-    axes[1, 0].set_title('Average Commits per PR')
-    axes[1, 0].set_xticks(x)
-    axes[1, 0].set_xticklabels(tools_list, rotation=45)
-    axes[1, 0].legend()
-    axes[1, 0].grid(axis='y', alpha=0.3)
-    
-    # Gráfico 4: Tempo até merge
-    with_ai_time = [cognitive_load_ai[tool]['with_ai']['avg_time_to_merge'] for tool in tools_list]
-    without_ai_time = [cognitive_load_ai[tool]['without_ai']['avg_time_to_merge'] for tool in tools_list]
-    
-    axes[1, 1].bar(x - width/2, with_ai_time, width, label='With AI', color='#e74c3c')
-    axes[1, 1].bar(x + width/2, without_ai_time, width, label='Without AI', color='#3498db')
-    axes[1, 1].set_xlabel('Tool')
-    axes[1, 1].set_ylabel('Time (hours)')
-    axes[1, 1].set_title('Average Time to Merge')
-    axes[1, 1].set_xticks(x)
-    axes[1, 1].set_xticklabels(tools_list, rotation=45)
-    axes[1, 1].legend()
-    axes[1, 1].grid(axis='y', alpha=0.3)
-    
+    axes[2].bar(x - width/2, with_ai_commits_avg, width, label='With AI', color='#e74c3c')
+    axes[2].bar(x + width/2, without_ai_commits_avg, width, label='Without AI', color='#3498db')
+    axes[2].set_xlabel('Tool')
+    axes[2].set_ylabel('Average Commits')
+    axes[2].set_title('Average Commits per PR')
+    axes[2].set_xticks(x)
+    axes[2].set_xticklabels(tools_list, rotation=45)
+    axes[2].legend()
+    axes[2].grid(axis='y', alpha=0.3)
+
     plt.tight_layout()
     plt.savefig('cognitive_load_ai_comparison.png', dpi=300, bbox_inches='tight')
     print("   - cognitive_load_ai_comparison.png gerado")
@@ -2041,6 +2476,11 @@ def main():
     print("   - issues_bot_distribution.png gerado")
     plt.close()
     
+    # NOVA SEÇÃO: Análise de Correlação de Spearman
+    correlation_results = calculate_spearman_correlations(all_data)
+    create_correlation_heatmaps(correlation_results)
+    export_correlation_results(correlation_results)
+    
     print("\n" + "="*80)
     print("ANÁLISE COMPLETA FINALIZADA!")
     print("="*80)
@@ -2059,6 +2499,8 @@ def main():
     print("  - intervention_frequency_comparison.csv")
     print("  - top_contributors_[tool].csv (3 arquivos)")
     print("  - top_reviewers_[tool].csv (3 arquivos)")
+    print("  - spearman_correlations_summary.csv")
+    print("  - pr_level_data_[tool].csv (3 arquivos)")
     print("\nGráficos PNG gerados:")
     print("  - feedback_loop_metrics.png")
     print("  - cognitive_load_metrics.png")
@@ -2072,6 +2514,8 @@ def main():
     print("  - review_cycle_time_comparison.png")
     print("  - intervention_frequency_comparison.png")
     print("  - issues_bot_distribution.png")
+    print("  - spearman_correlation_[tool].png (3 arquivos)")
+    print("  - spearman_significant_correlations.png")
     print("="*80)
 
 if __name__ == '__main__':

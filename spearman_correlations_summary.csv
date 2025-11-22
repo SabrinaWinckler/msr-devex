@@ -1,0 +1,13 @@
+Tool,Correlation,Spearman_rho,P_value,Significant,Sample_size,Strength
+Claude_Code,ai_comments_vs_total_commits,0.2173713082903623,2.5933632806116156e-06,True,459,Weak
+Claude_Code,ai_comments_vs_human_commits,0.21724112672195664,2.630246639588968e-06,True,459,Weak
+Claude_Code,total_reviews_vs_total_commits,0.2082065765313429,6.86279423968665e-06,True,459,Weak
+Claude_Code,ai_commits_vs_human_comments,0.07686349781552193,0.10003393731773103,False,459,Weak
+Copilot,ai_comments_vs_total_commits,0.5595404394307264,0.0,True,4971,Strong
+Copilot,ai_comments_vs_human_commits,0.32867116119666356,1.541227521017701e-125,True,4971,Moderate
+Copilot,total_reviews_vs_total_commits,0.5942000029682197,0.0,True,4971,Strong
+Copilot,ai_commits_vs_human_comments,0.4695260904781551,4.587747346551653e-271,True,4971,Moderate
+Cursor,ai_comments_vs_total_commits,0.06108494058959577,0.016475046668682474,True,1541,Weak
+Cursor,ai_comments_vs_human_commits,0.0892972795328301,0.00044880755541772783,True,1541,Weak
+Cursor,total_reviews_vs_total_commits,0.23481823920956807,9.510848274377106e-21,True,1541,Weak
+Cursor,ai_commits_vs_human_comments,0.0514467100742729,0.04345931970076613,True,1541,Weak
